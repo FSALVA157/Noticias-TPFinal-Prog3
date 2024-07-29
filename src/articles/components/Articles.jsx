@@ -1,5 +1,7 @@
 import React from 'react'
 
+
+
 export const Articles = () => {
   return (
     <>
@@ -18,6 +20,7 @@ export const Articles = () => {
         magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa
         sem. Etiam finibus odio quis feugiat facilisis.
       </p>
+
     </div>
     <nav className="level is-mobile">
       <div className="level-left">
@@ -36,6 +39,7 @@ export const Articles = () => {
   <div className="media-right">
     <button className="delete"></button>
   </div>
+ 
 </article>
     
     </>
