@@ -6,6 +6,7 @@ import { About } from '../../about/components/About'
 import { ProtectedRoutes } from '../components/ProtectedRoutes'
 import { NewArticle } from '../../articles/components/NewArticle'
 import { Articles } from '../../articles/components/Articles'
+import Home from '../../home/components/Home'
 
 
 // const AboutComponent = lazy(() => import('../layouts/Layout'))  
@@ -18,6 +19,10 @@ export const router = createBrowserRouter([
         path: '/',
         element: <Layout/>,
         children: [
+            {
+                index: true,
+                element: <Home/>,
+            },
             {
                 path: 'about',
                 element: <About/>,
