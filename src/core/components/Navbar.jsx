@@ -1,6 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Login } from '../../auth/components/Login'
+
 
 export const Navbar = () => {
+  const [isVisibleLogin, setisVisibleLogin] = useState(false)
+
+  
+  /**
+   <div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <Login />
+  </div>
+  <button class="modal-close is-large" aria-label="close"></button>
+</div>
+   * esta pensado para usar en boton login o cancel de login
+   * @return {void} No return value.
+   */
+  const toggleLogin = () => {
+    setisVisibleLogin(!isVisibleLogin)
+  }
+
+
+
+  const handleOnClickLogin = () => {
+    toggleLogin()
+    document.getElementById('modal').style.display = 'block'
+  }
+
+
+
   return (
     <>
     <nav className="navbar" role="navigation" aria-label="main navigation">
@@ -60,14 +89,21 @@ export const Navbar = () => {
           <a className="button is-primary">
             <strong>Sign up</strong>
           </a>
-          <a className="button is-light">
+          <button class="button is-light"  onClick={toggleLogin}  >
             Log in
-          </a>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </nav>
+    <Login isVisibleLogin={isVisibleLogin} setisVisibleLogin={setisVisibleLogin} toggleLogin={toggleLogin}/>
+{/* <div class={`modal ${isVisibleLogin ? 'is-active' : ''}`}  >
+  <div class="modal-background"></div>
+  <div class="modal-content">
+  </div>
+  <button class="modal-close is-large" aria-label="close" onClick={toggleLogin}></button>
+</div> */}
     </>
   )
 }
