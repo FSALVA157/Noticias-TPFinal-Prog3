@@ -28,7 +28,7 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
           </div>
           <div className="field">
             <p className="control">
-              <button className="button is-success">Login</button>
+              <button className="button is-warning">Login</button>
             </p>
           </div>
         </div>
