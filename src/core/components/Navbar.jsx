@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Login } from '../../auth/components/Login'
+import { NavLink } from 'react-router-dom'
 
 
 export const Navbar = () => {
@@ -56,9 +57,9 @@ export const Navbar = () => {
         Home
       </a>
 
-      <a className="navbar-item">
-        Documentation
-      </a>
+      <NavLink to='/about' className="navbar-item">
+        About
+      </NavLink>
 
       <div className="navbar-item has-dropdown is-hoverable">
         <a className="navbar-link">

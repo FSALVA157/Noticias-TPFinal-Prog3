@@ -1,16 +1,12 @@
 import React from 'react'
+import  '../../index.css'
+
 
 export const About = () => {
   return (
     <>
-    <section className="hero is-danger is-fullheight">
-  <div className="hero-body">
-    <div className="">
-      <p className="title">Fullheight hero</p>
-      <p className="subtitle">Fullheight subtitle</p>
-    </div>
-  </div>
-</section>
+   
+    <h1>ABOUT</h1>
     
     </>
   )
