@@ -53,9 +53,9 @@ export const Navbar = () => {
 
   <div id="navbarBasicExample" className="navbar-menu">
     <div className="navbar-start">
-      <a className="navbar-item">
+      <NavLink to='/' className="navbar-item">
         Home
-      </a>
+      </NavLink>
 
       <NavLink to='/about' className="navbar-item">
         About
