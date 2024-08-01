@@ -2,15 +2,16 @@ import React, { useContext } from 'react'
 import { UserContext } from '../../context/user-context/UserContext'
 
 const Home = () => {
-  const{user, setUser} =  useContext(UserContext);
-
-  return (
+    return (
     <>
-      <h1 className="title">{user.email}</h1 >
-      <h2 className="subtitle">{user.password}</h2>
+    <section className="hero is-warning">
+  <div className="hero-body">
+    <p className="title">Coffee Break News</p>
+    <p className="subtitle">Home</p>
+  </div>
+</section>
     </>
-    
-  )
+    )
 }
 
 export default Home
