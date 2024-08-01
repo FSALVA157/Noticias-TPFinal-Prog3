@@ -4,9 +4,9 @@ import ReactDOM from "react-dom";
 export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
   return ReactDOM.createPortal(
     <>
-      <div class={`modal ${isVisibleLogin ? "is-active" : ""}`}>
-        <div class="modal-background"></div>
-        <div class="modal-content">
+      <div className={`modal ${isVisibleLogin ? "is-active" : ""}`}>
+        <div className="modal-background"></div>
+        <div className="modal-content">
           <div className="field">
             <p className="control has-icons-left has-icons-right">
               <input className="input" type="email" placeholder="Email" />
@@ -33,7 +33,7 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
           </div>
         </div>
         <button
-          class="modal-close is-large"
+          className="modal-close is-large"
           aria-label="close"
           onClick={toggleLogin}
         ></button>
