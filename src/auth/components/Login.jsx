@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "../../index.css";
 
 export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
   return ReactDOM.createPortal(
