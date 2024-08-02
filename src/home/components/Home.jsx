@@ -8,7 +8,7 @@ const Home = () => {
       <div className="home-content">
         <div className='text-home is-size-1'>
           <p> Bienvenidos a Coffee Break News </p>
-    <img src="https://cdn.pixabay.com/photo/2024/05/17/06/59/abstract-8767544_1280.jpg" alt="imagen de fondo" />
+    <img src="https://img1.wallspic.com/crops/1/3/6/8/28631/28631-morado-textura-bombilla_de_luz_incandescente-la_luz_electrica-luminaria-1920x1080.jpg" alt="imagen de fondo" />
     </div>
     </div>
     </div>
