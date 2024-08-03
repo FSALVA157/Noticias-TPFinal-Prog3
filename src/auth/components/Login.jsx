@@ -1,6 +1,9 @@
 import ReactDOM from "react-dom";
 import "../../index.css";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/user-context/AuthContext";
+import { types } from "../../types/types";
+import { Notification } from "../../core/components/Notification";
 
 const initialState = {
   username: "",
@@ -10,11 +13,17 @@ const initialState = {
 export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
   const [user, setUser] = useState(initialState)
   const [isLoading, setisLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false)
+  const {login} = useContext(AuthContext);
+
   const base_url = import.meta.env.VITE_API_BASE_URL;
+
   
 
   const fetchLogin = useCallback(
     async() => {
+      setisLoading(true);
       try {
         const res = await fetch(`${base_url}/api-auth/`, {
           body: JSON.stringify(user),
@@ -23,17 +32,51 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
           },
           method: "POST",
         });
-        console.log("HEY RES",res.ok)
+
 
         if (!res.ok) {
-          const message = `An error has occured: ${res.status}`;
+          const message = `Error al obtener token: ${res.status}`;
           throw new Error(message);
         }
         const data = await res.json();
-        console.log(data);
+        const userToken = data.token
+        console.log(userToken);
+        //comenzamos a trabajar la peticion que trae los datos del usuario
+        
+        const res2 = await fetch(`${base_url}/users/profiles/profile_data/`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${userToken}`
+          },
+          method: "GET",          
+        })
+
+        if(!res2.ok) {  
+          const message = `Error al obtener los datos del usuario: ${res2.status}`;
+          throw new Error(message);
+        }
+
+        const dataUser = await res2.json();
+        console.log(dataUser);
+        const newAuthState = {
+          logged: true,
+          username: dataUser.first_name,
+          token: userToken
+        }
+
+        console.log("data enviada al state: ", newAuthState);
+
+        login({type: types.login, payload: newAuthState})        
+
+        setSuccess(true);
+        setInterval(() => {
+          setSuccess(false);
+        }, 3000);
         
       } catch (error) {
         console.log(error)
+      }finally {
+        setisLoading(false);
       }
       
     },
@@ -54,8 +97,7 @@ const handleChange = (e) => {
 }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(user)
+    e.preventDefault();    
     fetchLogin();
 
   };
@@ -65,7 +107,9 @@ const handleChange = (e) => {
       <div className={`modal ${isVisibleLogin ? "is-active" : ""}`}>
         <div className="modal-background"></div>
         <div className="modal-content">
+          {success && <Notification />}
           <form onSubmit={handleSubmit}>
+            
             <div className="field">
               <p className="control has-icons-left has-icons-right">
                 <input 
@@ -101,11 +145,12 @@ const handleChange = (e) => {
             </div>
             <div className="field">
               <p className="control">
-                <button className="button is-warning">Login</button>
+                <button className={`button is-warning ${isLoading ? "is-loading" : ""}`}>Login</button>
               </p>
-            </div>
+            </div>            
           </form>
         </div>
+       
         <button
           type="submit"
           className="modal-close is-large"
