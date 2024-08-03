@@ -29,7 +29,7 @@ export const Navbar = () => {
     <>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-          <a className="navbar-item" href="https://bulma.io">
+          <NavLink to="/" className="navbar-item" >
             <svg
               width="640"
               height="160"
@@ -51,7 +51,7 @@ export const Navbar = () => {
                 fill="#00D1B2"
               />
             </svg>
-          </a>
+          </NavLink>
 
           <a
             role="button"
