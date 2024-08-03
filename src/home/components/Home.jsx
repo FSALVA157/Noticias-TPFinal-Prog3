@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from '../../context/user-context/UserContext'
 
 const Home = () => {
     return (

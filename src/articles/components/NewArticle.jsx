@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserContext } from '../../context/user-context/UserContext'
 
 export const NewArticle = () => {
+  const {authState} =  useContext(UserContext)
+  
+
+  console.log(authState)
+
   return (
-    <div>NewArticle</div>
+    <>
+      <h1>{authState.username}</h1>
+    </>
   )
 }
