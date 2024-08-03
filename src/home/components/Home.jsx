@@ -1,6 +1,6 @@
 import '../../index.css'
 import React, { useContext } from 'react'
-import { UserContext } from '../../context/user-context/UserContext'
+import { AuthContext } from '../../context/user-context/AuthContext'
 
 const Home = () => {
   return (
