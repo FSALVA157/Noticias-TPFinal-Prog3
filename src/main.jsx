@@ -5,12 +5,12 @@ import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './core/routes/router'
 import 'bulma/css/bulma.min.css'
-import { UserProvider } from './context/user-context/UserProvider'
+import { AuthProvider } from './context/user-context/AuthProvider'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <UserProvider>
+    <AuthProvider>
       <RouterProvider router={router} />
-    </UserProvider>
+    </AuthProvider>
   </React.StrictMode>
 )

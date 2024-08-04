@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Login } from "../../auth/components/Login";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../context/user-context/AuthContext";
 
 export const Navbar = () => {
   const [isVisibleLogin, setisVisibleLogin] = useState(false);
+  const {authState} = useContext(AuthContext)
+  const{username} = authState;
 
   /**
    <div className="modal">
@@ -77,13 +80,41 @@ export const Navbar = () => {
               About
             </NavLink>
 
+            <NavLink to="/articles" className="navbar-item">
+              Articles
+            </NavLink>
+
             <NavLink to="/write" className="navbar-item">
               Write
             </NavLink>
           </div>
+          
 
           <div className="navbar-end">
-            <div className="navbar-item">
+            
+              {
+                authState.logged && (
+                  <div className="navbar-item">
+                <span 
+                style={{
+                  fontWeight: 'bold'    
+                }}
+                className="tag is-warning is-large">
+                   <i className="fas fa-user" 
+                   style={{marginRight:'10px'}}
+                   aria-hidden="true"></i>
+                  {username.split(' ')[0]}
+                </span>
+                <a className="button is-primary">
+                  <strong>Logout</strong>
+                </a>
+                </div>
+                
+                )
+              }            
+              {
+                !authState.logged && (
+                  <div className="navbar-item">
               <div className="buttons">
                 <a className="button is-primary">
                   <strong>Sign up</strong>
@@ -92,15 +123,20 @@ export const Navbar = () => {
                   Log in
                 </button>
               </div>
-            </div>
+            </div>      
+                )}
+            
+            
           </div>
         </div>
       </nav>
+      
       <Login
         isVisibleLogin={isVisibleLogin}
         setisVisibleLogin={setisVisibleLogin}
         toggleLogin={toggleLogin}
       />
+      
       {/* <div className={`modal ${isVisibleLogin ? 'is-active' : ''}`}  >
   <div className="modal-background"></div>
   <div className="modal-content">

@@ -1,46 +1,78 @@
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { ItemListArticle } from './ItemListArticle';
 
 
 
 export const Articles = () => {
+  const [isLoading, setIsLoading] = useState(false)
+  const base_url = import.meta.env.VITE_API_BASE_URL;
+  
+  let articulosList = [];
+  const [articlesCleanList, setArticlesCleanList] = useState([])
+
+  const fetchArticles = 
+    async() => {
+      setIsLoading(true);
+      try {
+        const res = await fetch(`${base_url}/infosphere/articles/`, {          
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "GET",
+        });
+
+
+        if (!res.ok) {
+          const message = `Error al obtener lista de Articulos: ${res.status}`;
+          throw new Error(message);
+        }
+        const data = await res.json();
+        
+        console.log(data.results);
+
+        articulosList = data.results;
+
+        //limpiemos la lista para el renderizado de articulos
+  const clearList = articulosList.map((article) => {
+    
+    return {
+      title: article.title,
+      subtitle: article.abstract,
+      image: article.image,
+      created: article.created_at,
+      reactions: article.reactions,
+      view_count: article.view_count,
+      content: article.content,
+    }
+  })
+
+  setArticlesCleanList(clearList)
+        
+        
+        
+      } catch (error) {
+        console.log(error)
+      }finally {
+        setIsLoading(false);
+        
+      }
+      
+    }
+
+  useEffect(() => {
+    fetchArticles()
+  }, [])
+  
+  
+  
+
   return (
     <>
-    <article className="media">
-  <figure className="media-left">
-    <p className="image is-64x64">
-      <img src="https://bulma.io/assets/images/placeholders/128x128.png" />
-    </p>
-  </figure>
-  <div className="media-content">
-    <div className="content">
-      <p>
-        <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
-        <br />
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare
-        magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa
-        sem. Etiam finibus odio quis feugiat facilisis.
-      </p>
-
-    </div>
-    <nav className="level is-mobile">
-      <div className="level-left">
-        <a className="level-item">
-          <span className="icon is-small"><i className="fas fa-reply"></i></span>
-        </a>
-        <a className="level-item">
-          <span className="icon is-small"><i className="fas fa-retweet"></i></span>
-        </a>
-        <a className="level-item">
-          <span className="icon is-small"><i className="fas fa-heart"></i></span>
-        </a>
-      </div>
-    </nav>
-  </div>
-  <div className="media-right">
-    <button className="delete"></button>
-  </div>
- 
-</article>
+      {        
+        articlesCleanList.map((article)=>{
+          return <ItemListArticle article={article}/>
+        })
+      }
     
     </>
   )
