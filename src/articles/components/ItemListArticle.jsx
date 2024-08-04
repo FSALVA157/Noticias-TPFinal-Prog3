@@ -22,6 +22,7 @@ export const ItemListArticle = ({article}) => {
             <br />
             {article.content}
                   </p>
+                  
             
                 </div>
                 <nav className="level is-mobile">
@@ -41,7 +42,7 @@ export const ItemListArticle = ({article}) => {
               <div className="media-right">
                 <button className="delete"></button>
               </div>
-             
+            
             </article>
             
               <div className="content">
