@@ -80,6 +80,10 @@ export const Navbar = () => {
               About
             </NavLink>
 
+            <NavLink to="/articles" className="navbar-item">
+              Articles
+            </NavLink>
+
             <NavLink to="/write" className="navbar-item">
               Write
             </NavLink>
@@ -96,7 +100,7 @@ export const Navbar = () => {
                   fontWeight: 'bold'    
                 }}
                 className="tag is-warning is-large">
-                   <i class="fas fa-user" 
+                   <i className="fas fa-user" 
                    style={{marginRight:'10px'}}
                    aria-hidden="true"></i>
                   {username.split(' ')[0]}
