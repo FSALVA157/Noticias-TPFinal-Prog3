@@ -1,6 +1,7 @@
 import React from "react";
 
 export const ItemListArticle = ({article}) => {
+    console.log("ARTICULO", article)
   return (
     <>
       <div className="card fixed-grid has-4-cols">
@@ -54,7 +55,7 @@ export const ItemListArticle = ({article}) => {
             <div className="card-image cell">
               <figure className="image">
                 <img
-                  src="https://bulma.io/assets/images/placeholders/1280x960.png"
+                  src={article.image}
                   alt="Placeholder image"
                 />
               </figure>
