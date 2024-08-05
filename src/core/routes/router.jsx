@@ -7,6 +7,7 @@ import { ProtectedRoutes } from '../components/ProtectedRoutes'
 import { NewArticle } from '../../articles/components/NewArticle'
 import { Articles } from '../../articles/components/Articles'
 import Home from '../../home/components/Home'
+import { fetchOneArticle, OneArticle } from '../../articles/components/OneArticle'
 
 
 // const AboutComponent = lazy(() => import('../layouts/Layout'))  
@@ -38,6 +39,14 @@ export const router = createBrowserRouter([
                 element: <ProtectedRoutes>
                     <Articles/>
                 </ProtectedRoutes>
+            },
+            {
+                path: 'article/:id',
+                element:
+                <ProtectedRoutes>
+                    <OneArticle/>               
+                </ProtectedRoutes>,
+                loader: fetchOneArticle
             },
             {
                 path: '*',

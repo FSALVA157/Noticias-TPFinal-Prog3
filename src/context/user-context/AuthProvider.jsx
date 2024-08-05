@@ -9,11 +9,13 @@ const userInitState={
     token:null
 }
 
+const init = () => {
+    return JSON.parse(localStorage.getItem('authState')) || userInitState    
+}
 export const AuthProvider = ({children}) => {
-    const [authState, dispatchAuthState] = useReducer(authReducer, userInitState);
+    const [authState, dispatchAuthState] = useReducer(authReducer, userInitState, init);
 
-    const login = (objeto) => {
-        
+    const login = (objeto) => {        
         dispatchAuthState(objeto)
     }
 
