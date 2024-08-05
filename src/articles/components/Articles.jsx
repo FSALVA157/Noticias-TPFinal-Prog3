@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ItemListArticle } from './ItemListArticle';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -28,7 +29,7 @@ export const Articles = () => {
         }
         const data = await res.json();
         
-        console.log(data.results);
+        // console.log(data.results);
 
         articulosList = data.results;
 
@@ -37,6 +38,7 @@ export const Articles = () => {
     let imageSrc = article.image !== null ? article.image : `https://picsum.photos/seed/${article.id}/200/300`;
     const truncatedContent = article.content.split(' ').slice(0, 50).join(' ') + '...';
     return {
+      id: article.id,
       title: article.title,
       subtitle: article.abstract,
       image: imageSrc,
@@ -71,7 +73,11 @@ export const Articles = () => {
     <>
       {        
         articlesCleanList.map((article)=>{
-          return <ItemListArticle article={article}/>
+          return (
+            <NavLink to={`/article/${article.id}`}>
+          <ItemListArticle article={article}/>
+          </NavLink>
+        )
         })
       }
     

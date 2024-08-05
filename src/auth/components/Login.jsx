@@ -63,10 +63,11 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
           username: dataUser.first_name,
           token: userToken
         }
-
-        //console.log("data enviada al state: ", newAuthState);
-
+        //accion de login en el contexto
         login({type: types.login, payload: newAuthState})        
+        //guardamos el estado de login en el localStorage
+        localStorage.setItem("authState", JSON.stringify(newAuthState))
+
 
         setSuccess(true);
         setInterval(() => {
