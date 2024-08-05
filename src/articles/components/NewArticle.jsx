@@ -66,7 +66,7 @@ export const NewArticle = () => {
             <div className="control has-icons-left has-icons-right">
               <input
                 name="title"
-                className="input is-success"
+                className="input is-link"
                 type="text"
                 placeholder="titulo del Articulo"
                 value={newArticle.title}
@@ -80,7 +80,7 @@ export const NewArticle = () => {
             <div className="control has-icons-left has-icons-right">
               <input
                 name="abstract"
-                className="input is-success"
+                className="input is-link"
                 type="text"
                 placeholder="Subtitulo"
                 value={newArticle.abstract}
@@ -94,7 +94,7 @@ export const NewArticle = () => {
             <div className="control has-icons-left has-icons-right">
               <input
                 name="caption"
-                className="input is-success"
+                className="input is-link"
                 type="text"
                 placeholder="caption de la imagen"
                 value={newArticle.caption}
@@ -107,7 +107,7 @@ export const NewArticle = () => {
             <label className="label">Contenido</label>
             <textarea
               name="content"
-              class="textarea is-primary"
+              class="textarea is-link"
               placeholder="texto del articulo"
               value={newArticle.content}
               onChange={handleOnChange}
@@ -124,7 +124,7 @@ export const NewArticle = () => {
             }}
           >
             <label className="label">Archivo de Imagen</label>
-            <div class="file is-warning is-boxed">
+            <div class="file is-info is-boxed">
               <label class="file-label">
                 <input 
                   class="file-input"
@@ -144,7 +144,7 @@ export const NewArticle = () => {
 
           <div class="field is-grouped">
             <div class="control">
-              <button type="submit" class="button is-link">Submit</button>
+              <button type="submit" class="button is-info">Submit</button>
             </div>
             <div class="control">
               <button  class="button is-link is-light">Cancel</button>

@@ -99,13 +99,13 @@ export const Navbar = () => {
                 style={{
                   fontWeight: 'bold'    
                 }}
-                className="tag is-warning is-large">
+                className="tag is-link is-large">
                    <i className="fas fa-user" 
                    style={{marginRight:'10px'}}
                    aria-hidden="true"></i>
                   {username.split(' ')[0]}
                 </span>
-                <a className="button is-primary">
+                <a className="button is-light">
                   <strong>Logout</strong>
                 </a>
                 </div>
