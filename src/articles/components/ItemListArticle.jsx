@@ -22,6 +22,7 @@ export const ItemListArticle = ({article}) => {
             <br />
             {article.content}
                   </p>
+                  
             
                 </div>
                 <nav className="level is-mobile">
@@ -41,10 +42,10 @@ export const ItemListArticle = ({article}) => {
               <div className="media-right">
                 <button className="delete"></button>
               </div>
-             
+            
             </article>
             
-              <div className="content">
+              <div className="article-content">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
                 nec iaculis mauris. <a>@bulmaio</a>. <a href="#">#css</a>
                 <a href="#">#responsive</a>
