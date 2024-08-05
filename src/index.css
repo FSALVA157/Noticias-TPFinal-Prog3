@@ -76,4 +76,9 @@
   display:flex;
 
 }*/
-
+.article-content {
+  font-size: 24pt;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
