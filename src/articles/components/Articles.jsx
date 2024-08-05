@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ItemListArticle } from './ItemListArticle';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -70,7 +71,11 @@ export const Articles = () => {
     <>
       {        
         articlesCleanList.map((article)=>{
-          return <ItemListArticle article={article}/>
+          return (
+            <NavLink to={`/article/${article.id}`}>
+          <ItemListArticle article={article}/>
+          </NavLink>
+        )
         })
       }
     

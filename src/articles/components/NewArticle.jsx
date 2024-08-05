@@ -20,10 +20,11 @@ export const NewArticle = () => {
   
 
   const handleOnChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
+    console.log("TARGET", e);
     setNewArticle({
       ...newArticle,
-      [name]: value,
+      [name]: files ? files[0] : value,
     });
     
   };
@@ -32,12 +33,21 @@ export const NewArticle = () => {
     e.preventDefault();
     setIsLoading(true);
     console.log(newArticle);
-    try {      
 
+     // FormData
+     const formData = new FormData();
+     formData.append("title", newArticle.title);
+     formData.append("abstract", newArticle.abstract);
+     formData.append("caption", newArticle.caption);
+     formData.append("content", newArticle.content);
+     if (newArticle.image) {
+       formData.append("image", newArticle.image);
+     }
+
+    try {      
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/infosphere/articles/`, {
-        body: JSON.stringify(newArticle),
-        headers: {
-          "Content-Type": "application/json",
+        body: formData,
+        headers: {          
           "Authorization": `Token ${token}`
         },
         method: "POST",
