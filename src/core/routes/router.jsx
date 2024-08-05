@@ -42,8 +42,9 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'article/:id',
-                element: <ProtectedRoutes>
-                    <OneArticle/>
+                element:
+                <ProtectedRoutes>
+                    <OneArticle/>               
                 </ProtectedRoutes>,
                 loader: fetchOneArticle
             },

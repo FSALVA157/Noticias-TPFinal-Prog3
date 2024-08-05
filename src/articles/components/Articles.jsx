@@ -29,7 +29,7 @@ export const Articles = () => {
         }
         const data = await res.json();
         
-        console.log(data.results);
+        // console.log(data.results);
 
         articulosList = data.results;
 
@@ -38,6 +38,7 @@ export const Articles = () => {
     let imageSrc = article.image !== null ? article.image : `https://picsum.photos/seed/${article.id}/200/300`;
     const truncatedContent = article.content.split(' ').slice(0, 50).join(' ') + '...';
     return {
+      id: article.id,
       title: article.title,
       subtitle: article.abstract,
       image: imageSrc,

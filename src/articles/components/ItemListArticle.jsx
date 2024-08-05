@@ -1,7 +1,7 @@
 import React from "react";
 
 export const ItemListArticle = ({article}) => {
-    console.log("ARTICULO", article)
+    
   return (
     <>
       <div className="card fixed-grid has-4-cols">
