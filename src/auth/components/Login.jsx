@@ -40,7 +40,7 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
         }
         const data = await res.json();
         const userToken = data.token
-        console.log(userToken);
+        /*console.log(userToken);*/
         //comenzamos a trabajar la peticion que trae los datos del usuario
         
         const res2 = await fetch(`${base_url}/users/profiles/profile_data/`, {
@@ -57,21 +57,22 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
         }
 
         const dataUser = await res2.json();
-        console.log(dataUser);
+        //console.log(dataUser);
         const newAuthState = {
           logged: true,
           username: dataUser.first_name,
           token: userToken
         }
 
-        console.log("data enviada al state: ", newAuthState);
+        //console.log("data enviada al state: ", newAuthState);
 
         login({type: types.login, payload: newAuthState})        
 
         setSuccess(true);
         setInterval(() => {
           setSuccess(false);
-        }, 3000);
+          setisVisibleLogin(false);
+        }, 2000);
         
       } catch (error) {
         console.log(error)
