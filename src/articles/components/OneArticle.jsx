@@ -4,28 +4,35 @@ import { ItemListArticle } from "./ItemListArticle";
 
 export const OneArticle = () => {
   const { data } = useLoaderData();
+  let clearArticle = null;
+  console.log("DATA EN EL COMPONENTE",data)
   
-  
+  if (data !== null) {
+    console.log("ENTRANDO EN EL IF" )
+
+    clearArticle = {
+      id: data.id,
+      title: data.title,
+      subtitle: data.abstract,
+      image:
+      data.image !== null
+      ? data.image
+      : `https://picsum.photos/seed/${data.id}/200/300`,
+      created: data.created_at,
+      reactions: data.reactions,
+      view_count: data.view_count,
+      content: data.content,
+    };
+    console.log(clearArticle)
+
+  }
   //   //limpiemos la lista para el renderizado de articulos
-  const clearArticle = {
-    id: data.id,
-    title: data.title,
-    subtitle: data.abstract,
-    image:
-    data.image !== null
-    ? data.image
-    : `https://picsum.photos/seed/${data.id}/200/300`,
-    created: data.created_at,
-    reactions: data.reactions,
-    view_count: data.view_count,
-    content: data.content,
-  };
   
   
   return (
     <>
     {
-      clearArticle && <ItemListArticle article={clearArticle}/>
+      data? <ItemListArticle article={clearArticle}/> : <h1>No hay Articulo</h1>
     }
     </>
     
@@ -46,19 +53,18 @@ export const fetchOneArticle = async ({ params }) => {
       },
       method: "GET",
     });
-    console.log(">>>>>>>>><", res)
+    console.log(">>>>>RES>>>><", res)
 
     if (!res.ok) {
       const message = `Error al obtener el  Articulo Buscado: ${res.status}`;
-      throw new Error(message);
+      return new Promise((resolve, reject) => resolve(
+        {data: null}
+      ));
     }
     const data = await res.json();
 
-
-
-    
-
     return  {data};
+    
     
   } catch (error) {
     console.log(error);
