@@ -36,7 +36,7 @@ export const Articles = () => {
         //limpiemos la lista para el renderizado de articulos
   const clearList = articulosList.map((article) => {
     let imageSrc = article.image !== null ? article.image : `https://picsum.photos/seed/${article.id}/200/300`;
-    const truncatedContent = article.content.split(' ').slice(0, 50).join(' ') + '...';
+    const truncatedContent = article.content.split(' ').slice(0, 20).join(' ') + '...';
     return {
       id: article.id,
       title: article.title,
