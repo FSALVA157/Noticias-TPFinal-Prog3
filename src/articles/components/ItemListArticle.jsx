@@ -17,7 +17,7 @@ export const ItemListArticle = ({article}) => {
               <div className="media-content">
                 <div className="content">
                     <h1>{article.title}</h1>
-                  <p style= {{fontSize:'3rem'}}>
+                  <p style= {{fontSize:'2rem'}}>
             
             <br />
             {article.content}

@@ -73,7 +73,7 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
         setInterval(() => {
           setSuccess(false);
           setisVisibleLogin(false);
-        }, 2000);
+        }, 1000);
         
       } catch (error) {
         console.log(error)
