@@ -17,7 +17,7 @@ export const ItemListArticle = ({article}) => {
               <div className="media-content">
                 <div className="content">
                     <h1>{article.title}</h1>
-                  <p>
+                  <p style= {{fontSize:'2rem'}}>
             
             <br />
             {article.content}
@@ -45,13 +45,13 @@ export const ItemListArticle = ({article}) => {
             
             </article>
             
-              <div className="article-content">
+              {/* <div className="article-content">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
                 nec iaculis mauris. <a>@bulmaio</a>. <a href="#">#css</a>
                 <a href="#">#responsive</a>
                 <br />
                 <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-              </div>
+              </div> */}
             </div>
             <div className="card-image cell">
               <figure className="image">

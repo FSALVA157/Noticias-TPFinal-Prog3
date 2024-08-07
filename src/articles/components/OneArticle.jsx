@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { ItemListArticle } from "./ItemListArticle";
+import ErrorComponent from "../../core/components/ErrorComponent";
 
 export const OneArticle = () => {
   const { data } = useLoaderData();
@@ -28,7 +29,7 @@ export const OneArticle = () => {
   return (
     <>
     {
-      data? <ItemListArticle article={clearArticle}/> : <h1>No hay Articulo</h1>
+      data? <ItemListArticle article={clearArticle}/> : <ErrorComponent/>
     }
     </>
     
