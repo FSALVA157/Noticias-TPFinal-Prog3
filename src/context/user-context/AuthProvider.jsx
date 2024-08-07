@@ -6,7 +6,8 @@ import { types } from '../../types/types'
 const userInitState={    
     logged: false,
     username:'',
-    token:null
+    token:null,
+    idUser: null,
 }
 
 const init = () => {
@@ -18,9 +19,13 @@ export const AuthProvider = ({children}) => {
     const login = (objeto) => {        
         dispatchAuthState(objeto)
     }
+    const logout = () => {
+      dispatchAuthState({type: types.logout})
+      localStorage.clear();
+    }
 
   return (
-    <AuthContext.Provider value={{authState, login}}>
+    <AuthContext.Provider value={{authState, login, logout}}>
       {children}
     </AuthContext.Provider>
   )
