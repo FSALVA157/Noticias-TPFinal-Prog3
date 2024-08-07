@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/user-context/AuthContext";
 
 export const Navbar = () => {
   const [isVisibleLogin, setisVisibleLogin] = useState(false);
-  const {authState} = useContext(AuthContext)
+  const {authState, logout} = useContext(AuthContext)
   const{username} = authState;
 
   /**
@@ -105,7 +105,7 @@ export const Navbar = () => {
                    aria-hidden="true"></i>
                   {username.split(' ')[0]}
                 </span>
-                <a className="button is-light">
+                <a className="button is-light" onClick={logout}>
                   <strong>Logout</strong>
                 </a>
                 </div>
