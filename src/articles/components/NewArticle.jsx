@@ -117,7 +117,7 @@ export const NewArticle = () => {
             <label className="label">Contenido</label>
             <textarea
               name="content"
-              class="textarea is-link"
+              className="textarea is-link"
               placeholder="texto del articulo"
               value={newArticle.content}
               onChange={handleOnChange}
@@ -134,30 +134,30 @@ export const NewArticle = () => {
             }}
           >
             <label className="label">Archivo de Imagen</label>
-            <div class="file is-link is-boxed">
-              <label class="file-label">
+            <div className="file is-link is-boxed">
+              <label className="file-label">
                 <input 
-                  class="file-input"
+                  className="file-input"
                   type="file"
                   name="image" 
                   onChange={handleOnChange}
                   />
-                <span class="file-cta">
-                  <span class="file-icon">
-                    <i class="fas fa-cloud-upload-alt"></i>
+                <span className="file-cta">
+                  <span className="file-icon">
+                    <i className="fas fa-cloud-upload-alt"></i>
                   </span>
-                  <span class="file-label"> Archivo de Imagen </span>
+                  <span className="file-label"> Archivo de Imagen </span>
                 </span>
               </label>
             </div>
           </div>
 
-          <div class="field is-grouped">
-            <div class="control">
-              <button type="submit" class="button is-link is-outlined">Submit</button>
+          <div className="field is-grouped">
+            <div className="control">
+              <button type="submit" className="button is-link is-outlined">Submit</button>
             </div>
-            <div class="control">
-              <button  class="button is-link is-outlined">Cancel</button>
+            <div className="control">
+              <button  className="button is-link is-outlined">Cancel</button>
             </div>
           </div>
         </form>
