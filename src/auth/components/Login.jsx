@@ -57,11 +57,12 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
         }
 
         const dataUser = await res2.json();
-        //console.log(dataUser);
+        
         const newAuthState = {
           logged: true,
           username: dataUser.first_name,
-          token: userToken
+          token: userToken,
+          idUser: dataUser.user__id
         }
         //accion de login en el contexto
         login({type: types.login, payload: newAuthState})        

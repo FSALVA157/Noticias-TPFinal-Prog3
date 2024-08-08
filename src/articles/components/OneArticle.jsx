@@ -5,12 +5,9 @@ import ErrorComponent from "../../core/components/ErrorComponent";
 
 export const OneArticle = () => {
   const { data } = useLoaderData();
-  let clearArticle = null;
-  console.log("DATA EN EL COMPONENTE",data)
+  let clearArticle = null;  
   
   if (data !== null) {
-    console.log("ENTRANDO EN EL IF" )
-
     clearArticle = {
       id: data.id,
       title: data.title,
@@ -27,8 +24,7 @@ export const OneArticle = () => {
     console.log(clearArticle)
 
   }
-  //   //limpiemos la lista para el renderizado de articulos
-  
+    
   
   return (
     <>
