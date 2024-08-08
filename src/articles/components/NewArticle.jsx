@@ -134,7 +134,7 @@ export const NewArticle = () => {
             }}
           >
             <label className="label">Archivo de Imagen</label>
-            <div class="file is-info is-boxed">
+            <div class="file is-link is-boxed">
               <label class="file-label">
                 <input 
                   class="file-input"
@@ -154,10 +154,10 @@ export const NewArticle = () => {
 
           <div class="field is-grouped">
             <div class="control">
-              <button type="submit" class="button is-info">Submit</button>
+              <button type="submit" class="button is-link is-outlined">Submit</button>
             </div>
             <div class="control">
-              <button  class="button is-link is-light">Cancel</button>
+              <button  class="button is-link is-outlined">Cancel</button>
             </div>
           </div>
         </form>

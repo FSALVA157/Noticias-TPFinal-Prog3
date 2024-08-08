@@ -6,7 +6,7 @@ export const Notification = () => {
   
 
   return (
-    <div className="notification is-info">
+    <div className="notification is-link">
       <button className="delete"></button>
       <h1 className="title">Bienvenido {authState.username}!!</h1>
     </div>
