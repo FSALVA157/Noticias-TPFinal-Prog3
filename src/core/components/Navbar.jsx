@@ -80,13 +80,13 @@ export const Navbar = () => {
                 style={{
                   fontWeight: 'bold'    
                 }}
-                className="tag is-link is-large">
+                className="tag is-link is-outlined is-medium">
                    <i className="fas fa-user" 
                    style={{marginRight:'10px'}}
                    aria-hidden="true"></i>
                   {username.split(' ')[0]}
                 </span>
-                <a className="button is-light is-outlined" onClick={logout}>
+                <a className="button is-light is-small is-outlined" onClick={logout}>
                   <strong>Logout</strong>
                 </a>
                 </div>
@@ -97,10 +97,10 @@ export const Navbar = () => {
                 !authState.logged && (
                   <div className="navbar-item">
               <div className="buttons">
-                <a className="button is-ghost">
+                <a className="button is-small is-ghost">
                   <strong>Sign up</strong>
                 </a>
-                <button className="button is-link is-outlined" onClick={toggleLogin}>
+                <button className="button is-small is-link is-outlined" onClick={toggleLogin}>
                   Log in
                 </button>
               </div>
