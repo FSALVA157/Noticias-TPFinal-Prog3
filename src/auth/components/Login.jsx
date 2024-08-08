@@ -57,11 +57,12 @@ export const Login = ({ isVisibleLogin, setisVisibleLogin, toggleLogin }) => {
         }
 
         const dataUser = await res2.json();
-        //console.log(dataUser);
+        
         const newAuthState = {
           logged: true,
           username: dataUser.first_name,
-          token: userToken
+          token: userToken,
+          idUser: dataUser.user__id
         }
         //accion de login en el contexto
         login({type: types.login, payload: newAuthState})        
@@ -147,7 +148,7 @@ const handleChange = (e) => {
             </div>
             <div className="field">
               <p className="control">
-                <button className={`button is-link ${isLoading ? "is-loading" : ""}`}>Login</button>
+                <button className={`button is small is-link ${isLoading ? "is-loading" : ""}`}>Login</button>
               </p>
             </div>            
           </form>
