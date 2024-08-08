@@ -148,7 +148,7 @@ const handleChange = (e) => {
             </div>
             <div className="field">
               <p className="control">
-                <button className={`button is-link ${isLoading ? "is-loading" : ""}`}>Login</button>
+                <button className={`button is small is-link ${isLoading ? "is-loading" : ""}`}>Login</button>
               </p>
             </div>            
           </form>
