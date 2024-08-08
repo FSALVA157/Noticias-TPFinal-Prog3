@@ -86,7 +86,7 @@ export const Navbar = () => {
                    aria-hidden="true"></i>
                   {username.split(' ')[0]}
                 </span>
-                <a className="button is-light" onClick={logout}>
+                <a className="button is-light is-outlined" onClick={logout}>
                   <strong>Logout</strong>
                 </a>
                 </div>
@@ -97,10 +97,10 @@ export const Navbar = () => {
                 !authState.logged && (
                   <div className="navbar-item">
               <div className="buttons">
-                <a className="button is-primary">
+                <a className="button is-ghost">
                   <strong>Sign up</strong>
                 </a>
-                <button className="button is-light" onClick={toggleLogin}>
+                <button className="button is-link is-outlined" onClick={toggleLogin}>
                   Log in
                 </button>
               </div>

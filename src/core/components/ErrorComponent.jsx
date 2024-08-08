@@ -1,10 +1,17 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import logoTristeza from '../../assets/tristeza.webp'
 
 const ErrorComponent = () => {
     return (
     <>
-    <div className="box">
+    <div className="columns">
+        <div className="column is-half is-offset-one-quarter">
+            <img src={logoTristeza} alt="foto error" />
+        </div>
+       
+        <div className="column">
+        <div className="box">
         <div className="field">
             <strong className="error" style ={{fontSize: '2rem'}}>404</strong>
         </div>
@@ -21,6 +28,9 @@ const ErrorComponent = () => {
         </NavLink>
         </div>
     </div>
+        </div>
+    </div>
+    
 
     </>
 )
