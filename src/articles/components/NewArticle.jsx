@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/user-context/AuthContext";
 import "../../App.css";
+import Message from "../../core/components/Message";
 
 const initialState = {
   title: "",
@@ -12,7 +13,7 @@ const initialState = {
 
 export const NewArticle = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const [newArticle, setNewArticle] = useState(initialState);
   const base_url = import.meta.env.VITE_API_BASE_URL;
   const {authState} = useContext(AuthContext)
@@ -70,6 +71,7 @@ export const NewArticle = () => {
   return (
     <>
       <div className="card" style={{ width: "70%", padding: "60px" }}>
+        <Message mensaje="Error al crear aticulo" tipo="is-primary"/>
         <form  onSubmit={handleOnSubmit}>
           <div className="field">
             <label className="label">Titulo</label>
