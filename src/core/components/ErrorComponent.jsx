@@ -7,11 +7,11 @@ const ErrorComponent = () => {
     <>
     <div className="columns">
         <div className="column is-half is-offset-one-quarter">
-            <img src={logoTristeza} alt="foto error" />
+            <img src={logoTristeza} alt="foto error" style={{borderRadius:'10%'}} />
         </div>
        
         <div className="column">
-        <div className="box">
+        <div style={{height:'100%', justifyContent:'center', alignItems:'center', display:'flex', flexDirection:'column'}}>
         <div className="field">
             <strong className="error" style ={{fontSize: '2rem'}}>404</strong>
         </div>
