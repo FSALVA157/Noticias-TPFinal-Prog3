@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { ItemListArticle } from "./ItemListArticle";
 import { AuthContext } from "../../context/user-context/AuthContext";
@@ -9,10 +9,11 @@ export const MyArticles = () => {
   const { data } = useLoaderData();
   let listadoCompleto = [];
   let lista_aux = data.results;
-  const { authState } = useContext(AuthContext);
-  console.log(authState);
+  const { authState } = useContext(AuthContext);  
   const { idUser } = authState;
-  console.log("ID DEL USUARIO", idUser);
+
+  
+  
 
   if (data !== null) {
     const listaFiltrada = lista_aux.filter(
@@ -37,21 +38,22 @@ export const MyArticles = () => {
     });
   }
 
-  console.log(listadoCompleto);
+  
+
 
   return (
     <>
       {listadoCompleto.length < 1 ? (
         <h1>No tienes articulos</h1>
       ) : (
-        <div class="columns" style={{ marginTop: "30px" }}>
-          <div class="column is-four-fifths">
-            {listadoCompleto.map((article) => (
-              <ItemMyArticle data={article} key={article.id} />
+        <div className="columns" style={{ marginTop: "30px" }}>
+          <div className="column is-four-fifths">
+            {listadoCompleto.map((article) => (              
+                <ItemMyArticle data={article} key={article.id} />              
             ))}
           </div>
-          <div class="column" style={{ justifyContent: "end" }}>
-          <figure class="image is-64x64">
+          <div className="column" style={{ justifyContent: "end" }}>
+          <figure className="image is-64x64" >
             <img src={deleteSvg}></img>
 
           </figure>
