@@ -4,16 +4,15 @@ import { ItemListArticle } from "./ItemListArticle";
 import { AuthContext } from "../../context/user-context/AuthContext";
 import { ItemMyArticle } from "./ItemMyArticle";
 import deleteSvg from "../../assets/delete.svg";
+import { closestCenter, DndContext } from "@dnd-kit/core";
+import { EditArticle } from "./EditArticle";
 
 export const MyArticles = () => {
   const { data } = useLoaderData();
   let listadoCompleto = [];
   let lista_aux = data.results;
-  const { authState } = useContext(AuthContext);  
+  const { authState } = useContext(AuthContext);
   const { idUser } = authState;
-
-  
-  
 
   if (data !== null) {
     const listaFiltrada = lista_aux.filter(
@@ -38,27 +37,31 @@ export const MyArticles = () => {
     });
   }
 
-  
-
+  const handleDragEnd = () => {};
 
   return (
     <>
       {listadoCompleto.length < 1 ? (
         <h1>No tienes articulos</h1>
       ) : (
-        <div className="columns" style={{ marginTop: "30px" }}>
-          <div className="column is-four-fifths">
-            {listadoCompleto.map((article) => (              
-                <ItemMyArticle data={article} key={article.id} />              
-            ))}
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <div className="columns" style={{ marginTop: "30px" }}>
+            <div className="column is-two-fifths">
+              {listadoCompleto.map((article) => (
+                <ItemMyArticle data={article} key={article.id} />
+              ))}
+            </div>
+            <div className="column" style={{ justifyContent: "end" }}>
+              <figure className="image is-64x64">
+                <img src={deleteSvg}></img>
+              </figure>
+              <EditArticle dataArticle={listadoCompleto[0]}/>
+            </div>
           </div>
-          <div className="column" style={{ justifyContent: "end" }}>
-          <figure className="image is-64x64" >
-            <img src={deleteSvg}></img>
-
-          </figure>
-          </div>
-        </div>
+        </DndContext>
       )}
     </>
   );
