@@ -70,6 +70,10 @@ export const Navbar = () => {
               Articles
             </NavLink>
 
+            <NavLink to="/mis-articulos" className="navbar-item">
+              My Articles
+            </NavLink>
+
             <NavLink to="/write" className="navbar-item">
               Write
             </NavLink>
@@ -91,22 +95,10 @@ export const Navbar = () => {
                    style={{marginRight:'10px'}}
                    aria-hidden="true"></i>
                   {username.split(' ')[0]}
+                </span>
           <div className="navbar-end ">
             {authState.logged && (
-              <div className="navbar-item">
-                <span
-                  style={{
-                    fontWeight: "bold",
-                  }}
-                  className="tag is-link is-large"
-                >
-                  <i
-                    className="fas fa-user"
-                    style={{ marginRight: "10px" }}
-                    aria-hidden="true"
-                  ></i>
-                  {username.split(" ")[0]}
-                </span>
+              <div className="navbar-item">                
                 <a className="button is-light is-small is-outlined" onClick={logout}>
                   <strong>Logout</strong>
                 </a>

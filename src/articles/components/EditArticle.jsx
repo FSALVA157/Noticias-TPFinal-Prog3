@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const EditArticle = ({dataArticle=initialState}) => {
-  const [isLoading, setIsLoading] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [editArticle, setEditArticle] = useState(initialState);
   const base_url = import.meta.env.VITE_API_BASE_URL;
@@ -19,6 +19,7 @@ export const EditArticle = ({dataArticle=initialState}) => {
   const {token} = authState;
 
   useEffect(() => {
+    console.log("DATA ARTICLE", dataArticle);
     setEditArticle({
       title: dataArticle.title,
       abstract: dataArticle.abstract,
@@ -26,7 +27,7 @@ export const EditArticle = ({dataArticle=initialState}) => {
       content: dataArticle.content      
     })
   
-  }, [])
+  }, [dataArticle])
   
   
 
@@ -43,25 +44,27 @@ export const EditArticle = ({dataArticle=initialState}) => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(editArticle);
+    const bodyToSend = JSON.stringify(editArticle);
+    console.log("DATOS DE EDIT",bodyToSend);
 
      // FormData
-     const formData = new FormData();
-     formData.append("title", editArticle.title);
-     formData.append("abstract", editArticle.abstract);
-     formData.append("caption", editArticle.caption);
-     formData.append("content", editArticle.content);
-     if (editArticle.image) {
-       formData.append("image", editArticle.image);
-     }
-
+    //  const formData = new FormData();
+    //  formData.append("title", editArticle.title);
+    //  formData.append("abstract", editArticle.abstract);
+    //  formData.append("caption", editArticle.caption);
+    //  formData.append("content", editArticle.content);
+    //  if (editArticle.image) {
+    //    formData.append("image", editArticle.image);
+    //  }
+    
     try {      
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/infosphere/articles/`, {
-        body: formData,
-        headers: {          
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/infosphere/articles/${dataArticle.id}/`, {
+        body: bodyToSend,
+        headers: {      
+          "Content-Type": "application/json",    
           "Authorization": `Token ${token}`
         },
-        method: "POST",
+        method: "PATCH",
       });
       console.log(res)
       if (!res.ok) {

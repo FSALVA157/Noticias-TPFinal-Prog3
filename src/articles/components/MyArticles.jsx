@@ -9,6 +9,8 @@ import { EditArticle } from "./EditArticle";
 
 export const MyArticles = () => {
   const { data } = useLoaderData();
+  const [dataSelectedArticle, setDataSelectedArticle] = useState({})
+
   let listadoCompleto = [];
   let lista_aux = data.results;
   const { authState } = useContext(AuthContext);
@@ -24,7 +26,8 @@ export const MyArticles = () => {
         id: article.id,
         author: article.author,
         title: article.title,
-        subtitle: article.abstract,
+        abstract: article.abstract,
+        caption: article.caption,
         image:
           article.image !== null
             ? article.image
@@ -33,10 +36,11 @@ export const MyArticles = () => {
         reactions: article.reactions,
         view_count: article.view_count,
         content: article.content,
-      };
+      }; 
     });
   }
 
+  
   const handleDragEnd = () => {};
 
   return (
@@ -51,14 +55,17 @@ export const MyArticles = () => {
           <div className="columns" style={{ marginTop: "30px" }}>
             <div className="column is-two-fifths">
               {listadoCompleto.map((article) => (
-                <ItemMyArticle data={article} key={article.id} />
+                <button key={article.id} onClick={() => setDataSelectedArticle(article)}>
+                  <ItemMyArticle data={article} key={article.id} />
+
+                </button>
               ))}
             </div>
             <div className="column" style={{ justifyContent: "end" }}>
               <figure className="image is-64x64">
                 <img src={deleteSvg}></img>
               </figure>
-              <EditArticle dataArticle={listadoCompleto[0]}/>
+              <EditArticle dataArticle={dataSelectedArticle}/>
             </div>
           </div>
         </DndContext>
