@@ -4,16 +4,17 @@ import { ItemListArticle } from "./ItemListArticle";
 import { AuthContext } from "../../context/user-context/AuthContext";
 import { ItemMyArticle } from "./ItemMyArticle";
 import deleteSvg from "../../assets/delete.svg";
+import { closestCenter, DndContext } from "@dnd-kit/core";
+import { EditArticle } from "./EditArticle";
 
 export const MyArticles = () => {
   const { data } = useLoaderData();
+  const [dataSelectedArticle, setDataSelectedArticle] = useState({})
+
   let listadoCompleto = [];
   let lista_aux = data.results;
-  const { authState } = useContext(AuthContext);  
+  const { authState } = useContext(AuthContext);
   const { idUser } = authState;
-
-  
-  
 
   if (data !== null) {
     const listaFiltrada = lista_aux.filter(
@@ -25,7 +26,8 @@ export const MyArticles = () => {
         id: article.id,
         author: article.author,
         title: article.title,
-        subtitle: article.abstract,
+        abstract: article.abstract,
+        caption: article.caption,
         image:
           article.image !== null
             ? article.image
@@ -34,31 +36,39 @@ export const MyArticles = () => {
         reactions: article.reactions,
         view_count: article.view_count,
         content: article.content,
-      };
+      }; 
     });
   }
 
   
-
+  const handleDragEnd = () => {};
 
   return (
     <>
       {listadoCompleto.length < 1 ? (
         <h1>No tienes articulos</h1>
       ) : (
-        <div className="columns" style={{ marginTop: "30px" }}>
-          <div className="column is-four-fifths">
-            {listadoCompleto.map((article) => (              
-                <ItemMyArticle data={article} key={article.id} />              
-            ))}
-          </div>
-          <div className="column" style={{ justifyContent: "end" }}>
-          <figure className="image is-64x64" >
-            <img src={deleteSvg}></img>
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <div className="columns" style={{ marginTop: "30px" }}>
+            <div className="column is-two-fifths">
+              {listadoCompleto.map((article) => (
+                <button key={article.id} onClick={() => setDataSelectedArticle(article)}>
+                  <ItemMyArticle data={article} key={article.id} />
 
-          </figure>
+                </button>
+              ))}
+            </div>
+            <div className="column" style={{ justifyContent: "end" }}>
+              <figure className="image is-64x64">
+                <img src={deleteSvg}></img>
+              </figure>
+              <EditArticle dataArticle={dataSelectedArticle}/>
+            </div>
           </div>
-        </div>
+        </DndContext>
       )}
     </>
   );
