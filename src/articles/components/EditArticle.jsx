@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/user-context/AuthContext";
 import "../../App.css";
-import Message from "../../core/components/Message";
 
 const initialState = {
   title: "",
@@ -11,25 +10,32 @@ const initialState = {
   image: null,
 };
 
-export const NewArticle = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
-  const [errorState, setErrorState] = useState({
-    tipo: 'is-danger',
-    mensaje:'mensaje por defecto'
-  })
-  
-  const [newArticle, setNewArticle] = useState(initialState);
+export const EditArticle = ({dataArticle=initialState}) => {
+const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [editArticle, setEditArticle] = useState(initialState);
   const base_url = import.meta.env.VITE_API_BASE_URL;
   const {authState} = useContext(AuthContext)
   const {token} = authState;
+
+  useEffect(() => {
+    console.log("DATA ARTICLE", dataArticle);
+    setEditArticle({
+      title: dataArticle.title,
+      abstract: dataArticle.abstract,
+      caption: dataArticle.caption,
+      content: dataArticle.content      
+    })
+  
+  }, [dataArticle])
   
   
+
   const handleOnChange = (e) => {
     const { name, value, files } = e.target;
     console.log("TARGET", e);
-    setNewArticle({
-      ...newArticle,
+    setEditArticle({
+      ...editArticle,
       [name]: files ? files[0] : value,
     });
     
@@ -38,49 +44,37 @@ export const NewArticle = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(newArticle);
+    const bodyToSend = JSON.stringify(editArticle);
+    console.log("DATOS DE EDIT",bodyToSend);
 
      // FormData
-     const formData = new FormData();
-     formData.append("title", newArticle.title);
-     formData.append("abstract", newArticle.abstract);
-     formData.append("caption", newArticle.caption);
-     formData.append("content", newArticle.content);
-     if (newArticle.image) {
-       formData.append("image", newArticle.image);
-     }
-
+    //  const formData = new FormData();
+    //  formData.append("title", editArticle.title);
+    //  formData.append("abstract", editArticle.abstract);
+    //  formData.append("caption", editArticle.caption);
+    //  formData.append("content", editArticle.content);
+    //  if (editArticle.image) {
+    //    formData.append("image", editArticle.image);
+    //  }
+    
     try {      
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/infosphere/articles/`, {
-        body: formData,
-        headers: {          
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/infosphere/articles/${dataArticle.id}/`, {
+        body: bodyToSend,
+        headers: {      
+          "Content-Type": "application/json",    
           "Authorization": `Token ${token}`
         },
-        method: "POST",
+        method: "PATCH",
       });
       console.log(res)
       if (!res.ok) {
         const message = `Error al crear Articulo: ${res.status}`;
-        setTimeout(() => { 
-          setShowMessage(false)
-          setErrorState({ tipo: 'is-warning', mensaje: message });
-        }, 2000)
-        setShowMessage(true)
-      return;
+        throw new Error(message);
       }
-        const message = `Se ha creado el articulo con Exito: ${res.status}`;
-        setTimeout(() => { 
-          setShowMessage(false)
-          setErrorState({ tipo: 'is-primary', mensaje: message });
-        }, 2000)
-        setShowMessage(true)
-      return;
       const data = await res.json();
       console.log(data);
-      setNewArticle(initialState);
+      setEditArticle(initialState);
     } catch (error) {
-      setErrorState ({ tipo:'is-warning', mensaje: message });
-      setShowMessage(true);
       setIsError(true);
       console.log(error);
     }
@@ -99,7 +93,7 @@ export const NewArticle = () => {
                 className="input is-link"
                 type="text"
                 placeholder="titulo del Articulo"
-                value={newArticle.title}
+                value={editArticle.title}
                 onChange={handleOnChange}
               />
             </div>
@@ -113,7 +107,7 @@ export const NewArticle = () => {
                 className="input is-link"
                 type="text"
                 placeholder="Subtitulo"
-                value={newArticle.abstract}
+                value={editArticle.abstract}
                 onChange={handleOnChange}
               />
             </div>
@@ -127,7 +121,7 @@ export const NewArticle = () => {
                 className="input is-link"
                 type="text"
                 placeholder="caption de la imagen"
-                value={newArticle.caption}
+                value={editArticle.caption}
                 onChange={handleOnChange}
               />
             </div>
@@ -139,7 +133,7 @@ export const NewArticle = () => {
               name="content"
               className="textarea is-link"
               placeholder="texto del articulo"
-              value={newArticle.content}
+              value={editArticle.content}
               onChange={handleOnChange}
             ></textarea>
           </div>
@@ -173,7 +167,6 @@ export const NewArticle = () => {
           </div>
 
           <div className="field is-grouped">
-         
             <div className="control">
               <button type="submit" className="button is-link is-outlined">Submit</button>
             </div>
@@ -181,9 +174,6 @@ export const NewArticle = () => {
               <button  className="button is-link is-outlined">Cancel</button>
             </div>
           </div>
-          <div className="" style={{ display: showMessage ? 'block' : 'none' }}>
-          <Message mensaje={errorState.mensaje} tipo={errorState.tipo}/>
-        </div>
         </form>
       </div>
     </>

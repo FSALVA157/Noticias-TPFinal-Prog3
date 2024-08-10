@@ -9,6 +9,7 @@ import { Articles } from '../../articles/components/Articles'
 import Home from '../../home/components/Home'
 import { fetchOneArticle, OneArticle } from '../../articles/components/OneArticle'
 import { fetchAllArticles, MyArticles } from '../../articles/components/MyArticles'
+import ErrorComponent from '../components/ErrorComponent'
 
 
 // const AboutComponent = lazy(() => import('../layouts/Layout'))  
@@ -59,7 +60,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '*',
-                element: <div>404</div>
+                element: <ErrorComponent/>
             }
         ]
     },
