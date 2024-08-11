@@ -10,14 +10,14 @@ export const ItemMyArticle = ({ data }) => {
             {data.content.split(" ").slice(0, 10).join(" ")}...
           </div>
         </div>
-        <footer className="card-footer">
+        {/* <footer className="card-footer">
           <a href="#" className="card-footer-item">
             Edit
           </a>
           <a href="#" className="card-footer-item">
             Delete
           </a>
-        </footer>
+        </footer> */}
       </div>
     </>
   );
