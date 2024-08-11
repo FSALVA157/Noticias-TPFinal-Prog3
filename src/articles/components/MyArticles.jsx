@@ -1,70 +1,147 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { ItemListArticle } from "./ItemListArticle";
 import { AuthContext } from "../../context/user-context/AuthContext";
 import { ItemMyArticle } from "./ItemMyArticle";
 import deleteSvg from "../../assets/delete.svg";
-import { closestCenter, DndContext } from "@dnd-kit/core";
+import { closestCenter, closestCorners, DndContext } from "@dnd-kit/core";
 import { EditArticle } from "./EditArticle";
+import { DraggableArticleWrapper } from "./DraggableArticleWrapper";
+import { DroppableArticleWrapper } from "./DroppableArticleWrapper";
+import { ModalConfirm } from "../../core/components/ModalConfirm";
 
 export const MyArticles = () => {
-  const { data } = useLoaderData();
+  const { data } = useLoaderData();  
+  
   const [dataSelectedArticle, setDataSelectedArticle] = useState({})
-
-  let listadoCompleto = [];
-  let lista_aux = data.results;
   const { authState } = useContext(AuthContext);
-  const { idUser } = authState;
+  const { idUser, token } = authState;
+  const [showModal, setshowModal] = useState(false)
+  const [listaFiltrada, setlistaFiltrada] = useState([]);
+  const isDraggingRef = useRef(false)
+  const [articleToDelete, setArticleToDelete] = useState(null);
+  
+  
 
-  if (data !== null) {
-    const listaFiltrada = lista_aux.filter(
-      (article) => article.author === idUser
-    );
+  const handleOnClickArticle = (data) => {
+    if(!isDraggingRef.current) {
+      setDataSelectedArticle(data);     
+    }
+    console.log("Articulo seleccionado", data)
+  };
 
-    listadoCompleto = listaFiltrada.map((article) => {
-      return {
-        id: article.id,
-        author: article.author,
-        title: article.title,
-        abstract: article.abstract,
-        caption: article.caption,
-        image:
-          article.image !== null
-            ? article.image
-            : `https://picsum.photos/seed/${article.id}/200/300`,
-        created: article.created_at,
-        reactions: article.reactions,
-        view_count: article.view_count,
-        content: article.content,
-      }; 
-    });
-  }
+  useEffect(() => {
+    if (data !== null) {
+      const prelistaFiltrada = data.results.filter(
+        (article) => article.author === idUser
+      );
+  
+      const listadoCompleto = prelistaFiltrada.map((article) => {
+        return {
+          id: article.id,
+          author: article.author,
+          title: article.title,
+          abstract: article.abstract,
+          caption: article.caption,
+          image:
+            article.image !== null
+              ? article.image
+              : `https://picsum.photos/seed/${article.id}/200/300`,
+          created: article.created_at,
+          reactions: article.reactions,
+          view_count: article.view_count,
+          content: article.content,
+        }; 
+      });    
+
+      setlistaFiltrada(listadoCompleto);
+    }
+  
+  }, [data, idUser]);
+
+  const handleDragStart = () => {
+   isDraggingRef.current = true;
+  };
+  
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;    
+
+    if (isDraggingRef.current && over && over.id === 'delete-area') {
+      console.log("ESTE ES EL ID QUE SE BORRARA", active.id)
+      setArticleToDelete(active.id)
+      setshowModal(true)
+      setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== active.id));
+    }
+    isDraggingRef.current = false
+  };
+
+  //metodo asincronico para borrar articulo
+  const deleteArticle = async (articleId) => {
+    const base_url = import.meta.env.VITE_API_BASE_URL;
+    try {
+      const res = await fetch(`${base_url}/infosphere/articles/${articleId}/`, {
+        headers: {          
+          "Authorization": `Token ${token}`
+        },
+        method: "DELETE",
+      });
+      console.log(res)
+
+      if (res.ok) {        
+        setlistaFiltrada((prevItems) =>
+          prevItems.filter((item) => item.id !== articleId)
+        );
+      } else {
+        console.error("Error al eliminar el artículo.");
+      }
+    } catch (error) {
+      console.error("Error en la petición para eliminar el artículo:", error);
+    }
+  };
+
+  const handleConfirmDelete = () => {
+    if (articleToDelete) {
+      deleteArticle(articleToDelete);
+    }
+    setshowModal(false);
+  };1
 
   
-  const handleDragEnd = () => {};
+  
 
   return (
     <>
-      {listadoCompleto.length < 1 ? (
+      <ModalConfirm showModal={showModal} setshowModal={setshowModal} handleConfirmDelete={handleConfirmDelete}/>
+      {listaFiltrada.length < 1 ? (
         <h1>No tienes articulos</h1>
       ) : (
         <DndContext
           collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
-          <div className="columns" style={{ marginTop: "30px" }}>
+          <div className="columns is-8" style={{ marginTop: "30px" }}>
             <div className="column is-two-fifths">
-              {listadoCompleto.map((article) => (
-                <button key={article.id} onClick={() => setDataSelectedArticle(article)}>
-                  <ItemMyArticle data={article} key={article.id} />
-
+              {listaFiltrada.map((article) => (
+                <>
+                <DraggableArticleWrapper id={article.id} data={article}/>
+                <button className="button"  key={article.id} onClick={() => setDataSelectedArticle(article)}>                
+                  EditArticle
                 </button>
+                </>
               ))}
             </div>
-            <div className="column" style={{ justifyContent: "end" }}>
-              <figure className="image is-64x64">
-                <img src={deleteSvg}></img>
-              </figure>
+            <div className="column"  >              
+              <div style={{ width: "100%",height:"20%", 
+              alignItems:'center',
+              justifyContent:'center',display:"flex", flexDirection:'column' }}>
+
+              <DroppableArticleWrapper id='delete-area' />
+
+              </div>
+
+
               <EditArticle dataArticle={dataSelectedArticle}/>
             </div>
           </div>
