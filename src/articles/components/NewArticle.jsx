@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/user-context/AuthContext";
 import "../../App.css";
 import Message from "../../core/components/Message";
@@ -14,12 +14,17 @@ const initialState = {
 export const NewArticle = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [errorState, setErrorState] = useState({
+    tipo: 'is-danger',
+    mensaje:'mensaje por defecto'
+  })
+  
   const [newArticle, setNewArticle] = useState(initialState);
   const base_url = import.meta.env.VITE_API_BASE_URL;
   const {authState} = useContext(AuthContext)
   const {token} = authState;
   
-
+  
   const handleOnChange = (e) => {
     const { name, value, files } = e.target;
     console.log("TARGET", e);
@@ -33,7 +38,6 @@ export const NewArticle = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(newArticle);
 
      // FormData
      const formData = new FormData();
@@ -56,12 +60,27 @@ export const NewArticle = () => {
       console.log(res)
       if (!res.ok) {
         const message = `Error al crear Articulo: ${res.status}`;
-        throw new Error(message);
+        setTimeout(() => { 
+          setShowMessage(false)
+          setErrorState({ tipo: 'is-warning', mensaje: message });
+        }, 2000)
+        setIsLoading(false)
+        setShowMessage(true)
+      return;
       }
+        const message = `Se ha creado el articulo con Exito: ${res.status}`;
+        setTimeout(() => { 
+          setShowMessage(false)
+          setErrorState({ tipo: 'is-primary', mensaje: message });
+        }, 2000)
+        setShowMessage(true)
+      return;
       const data = await res.json();
       console.log(data);
       setNewArticle(initialState);
     } catch (error) {
+      setErrorState ({ tipo:'is-warning', mensaje: message });
+      setShowMessage(true);
       setIsError(true);
       console.log(error);
     }
@@ -71,7 +90,6 @@ export const NewArticle = () => {
   return (
     <>
       <div className="card" style={{ width: "70%", padding: "60px" }}>
-        <Message mensaje="Error al crear aticulo" tipo="is-primary"/>
         <form  onSubmit={handleOnSubmit}>
           <div className="field">
             <label className="label">Titulo</label>
@@ -118,7 +136,7 @@ export const NewArticle = () => {
           <div className="field">
             <label className="label">Contenido</label>
             <textarea
-              name="content"
+              name="content" 
               className="textarea is-link"
               placeholder="texto del articulo"
               value={newArticle.content}
@@ -155,13 +173,18 @@ export const NewArticle = () => {
           </div>
 
           <div className="field is-grouped">
+         
             <div className="control">
-              <button type="submit" className="button is-link is-outlined">Submit</button>
+            
+              <button disabled={isLoading} type="submit" className={`button is small is-link ${isLoading ? "is-loading" : ""}`}>Submit</button>
             </div>
             <div className="control">
               <button  className="button is-link is-outlined">Cancel</button>
             </div>
           </div>
+          <div className="" style={{ display: showMessage ? 'block' : 'none' }}>
+          <Message mensaje={errorState.mensaje} tipo={errorState.tipo}/>
+        </div>
         </form>
       </div>
     </>
