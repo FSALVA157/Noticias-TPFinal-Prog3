@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/user-context/AuthContext";
 import "../../App.css";
 
 const initialState = {
+  id: "",
   title: "",
   abstract: "",
   caption: "",
@@ -21,6 +22,7 @@ const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     console.log("DATA ARTICLE", dataArticle);
     setEditArticle({
+      id: dataArticle.id,
       title: dataArticle.title,
       abstract: dataArticle.abstract,
       caption: dataArticle.caption,
