@@ -56,8 +56,7 @@ export const NewArticle = () => {
           "Authorization": `Token ${token}`
         },
         method: "POST",
-      });
-      console.log(res)
+      });      
       if (!res.ok) {
         const message = `Error al crear Articulo: ${res.status}`;
         setTimeout(() => { 
@@ -73,13 +72,13 @@ export const NewArticle = () => {
           setShowMessage(false)
           setErrorState({ tipo: 'is-primary', mensaje: message });
         }, 2000)
+        setIsLoading(false)
         setShowMessage(true)
-      return;
-      const data = await res.json();
-      console.log(data);
+      //return;
+      const data = await res.json();      
       setNewArticle(initialState);
     } catch (error) {
-      setErrorState ({ tipo:'is-warning', mensaje: message });
+      setErrorState ({ tipo:'is-warning', mensaje: error.message });
       setShowMessage(true);
       setIsError(true);
       console.log(error);

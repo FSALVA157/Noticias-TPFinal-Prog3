@@ -53,7 +53,6 @@ export const MyArticles = () => {
           content: article.content,
         }; 
       });    
-
       setlistaFiltrada(listadoCompleto);
     }
   
@@ -71,7 +70,7 @@ export const MyArticles = () => {
       console.log("ESTE ES EL ID QUE SE BORRARA", active.id)
       setArticleToDelete(active.id)
       setshowModal(true)
-      setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== active.id));
+      // setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== active.id));
     }
     isDraggingRef.current = false
   };
@@ -103,16 +102,21 @@ export const MyArticles = () => {
   const handleConfirmDelete = () => {
     if (articleToDelete) {
       deleteArticle(articleToDelete);
+      setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== active.id));
     }
     setshowModal(false);
-  };1
+  };
 
-  
+  const handleCancelDelete = () => {    
+    setshowModal(false);
+  };
+
   
 
   return (
     <>
-      <ModalConfirm showModal={showModal} setshowModal={setshowModal} handleConfirmDelete={handleConfirmDelete}/>
+      <ModalConfirm showModal={showModal} setshowModal={setshowModal} handleConfirmDelete={handleConfirmDelete} handleCancelDelete={handleCancelDelete}/>
+
       {listaFiltrada.length < 1 ? (
         <h1>No tienes articulos</h1>
       ) : (
@@ -126,7 +130,8 @@ export const MyArticles = () => {
               {listaFiltrada.map((article) => (
                 <>
                 <DraggableArticleWrapper id={article.id} data={article}/>
-                <button className="button"  key={article.id} onClick={() => setDataSelectedArticle(article)}>                
+                <button className="button is-light"  key={article.id} onClick={() => setDataSelectedArticle(article)}>                
+
                   EditArticle
                 </button>
                 </>
