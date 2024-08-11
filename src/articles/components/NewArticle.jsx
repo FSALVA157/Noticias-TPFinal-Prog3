@@ -38,7 +38,6 @@ export const NewArticle = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(newArticle);
 
      // FormData
      const formData = new FormData();
@@ -65,6 +64,7 @@ export const NewArticle = () => {
           setShowMessage(false)
           setErrorState({ tipo: 'is-warning', mensaje: message });
         }, 2000)
+        setIsLoading(false)
         setShowMessage(true)
       return;
       }
@@ -136,7 +136,7 @@ export const NewArticle = () => {
           <div className="field">
             <label className="label">Contenido</label>
             <textarea
-              name="content"
+              name="content" 
               className="textarea is-link"
               placeholder="texto del articulo"
               value={newArticle.content}
@@ -175,7 +175,8 @@ export const NewArticle = () => {
           <div className="field is-grouped">
          
             <div className="control">
-              <button type="submit" className="button is-link is-outlined">Submit</button>
+            
+              <button disabled={isLoading} type="submit" className={`button is small is-link ${isLoading ? "is-loading" : ""}`}>Submit</button>
             </div>
             <div className="control">
               <button  className="button is-link is-outlined">Cancel</button>

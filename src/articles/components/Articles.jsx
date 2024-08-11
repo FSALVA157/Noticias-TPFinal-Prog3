@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { ItemListArticle } from './ItemListArticle';
 import { NavLink } from 'react-router-dom';
+import { Spinner } from '../../core/components/Spinner';
 
 
 
@@ -71,6 +72,7 @@ export const Articles = () => {
 
   return (
     <>
+    {isLoading && <Spinner/>}
       {        
         articlesCleanList.map((article)=>{
           return (
