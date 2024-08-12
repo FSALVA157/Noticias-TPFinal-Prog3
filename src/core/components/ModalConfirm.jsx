@@ -1,16 +1,20 @@
 import ReactDOM from "react-dom";
 
+
 export const ModalConfirm = ({showModal, setShowModal, handleConfirmDelete, handleCancelDelete}) => {
+
 
   const handleOnClickAcceptDelete = () => {
     handleConfirmDelete();
     //setShowModal(false);
   };
 
+
   const handleOnClickCancelDelete = () => {
     handleCancelDelete ();
     //setShowModal(false);
   };
+
 
   return ReactDOM.createPortal(
     <>
@@ -27,7 +31,9 @@ export const ModalConfirm = ({showModal, setShowModal, handleConfirmDelete, hand
           <footer className="modal-card-foot">
             <div className="buttons">
               <button onClick={handleOnClickAcceptDelete} className="button is-success">Aceptar</button>
+
               <button onClick={handleOnClickCancelDelete} className="button">Cancelar</button>
+
             </div>
           </footer>
         </div>

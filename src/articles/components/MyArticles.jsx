@@ -56,7 +56,6 @@ export const MyArticles = () => {
           content: article.content,
         }; 
       });    
-
       setlistaFiltrada(listadoCompleto);
     }
   
@@ -116,11 +115,11 @@ export const MyArticles = () => {
   };
 
   
-  
 
   return (
     <>
       <ModalConfirm showModal={showModal} setshowModal={setshowModal} handleConfirmDelete={handleConfirmDelete} handleCancelDelete={handleCancelDelete}/>
+
       {listaFiltrada.length < 1 ? (
         <h1>No tienes articulos</h1>
       ) : (
@@ -135,6 +134,7 @@ export const MyArticles = () => {
                 <>
                 <DraggableArticleWrapper id={article.id} data={article}/>
                 <button className="button is-light"  key={article.id} onClick={() => setDataSelectedArticle(article)}>                
+
                   EditArticle
                 </button>
                 </>
