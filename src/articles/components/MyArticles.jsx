@@ -14,6 +14,7 @@ import { Spinner } from "../../core/components/Spinner";
 export const MyArticles = () => {
   const { data } = useLoaderData();  
   
+  
   const [dataSelectedArticle, setDataSelectedArticle] = useState({})
   const { authState } = useContext(AuthContext);
   const { idUser, token } = authState;
@@ -37,7 +38,8 @@ export const MyArticles = () => {
       const prelistaFiltrada = data.results.filter(
         (article) => article.author === idUser
       );
-      console.log(prelistaFiltrada)
+
+      console.log("TUS ARTICULOS",prelistaFiltrada);
   
       const listadoCompleto = prelistaFiltrada.map((article) => {
         return {
@@ -56,7 +58,6 @@ export const MyArticles = () => {
           content: article.content,
         }; 
       });    
-
       setlistaFiltrada(listadoCompleto);
     }
   
@@ -74,7 +75,7 @@ export const MyArticles = () => {
       console.log("ESTE ES EL ID QUE SE BORRARA", active.id)
       setArticleToDelete(active.id)
       setshowModal(true)
-      setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== active.id));
+      // setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== active.id));
     }
     isDraggingRef.current = false
   };
@@ -106,11 +107,15 @@ export const MyArticles = () => {
   const handleConfirmDelete = () => {
     if (articleToDelete) {
       deleteArticle(articleToDelete);
+      setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== articleToDelete));
     }
     setshowModal(false);
-  };1
+  };
 
-  
+  const handleCancelDelete = () => {    
+    setshowModal(false);
+  };
+
   
 
   return (
@@ -130,7 +135,8 @@ export const MyArticles = () => {
               {listaFiltrada.map((article) => (
                 <>
                 <DraggableArticleWrapper id={article.id} data={article}/>
-                <button className="button"  key={article.id} onClick={() => setDataSelectedArticle(article)}>                
+                <button className="button is-light"  key={article.id} onClick={() => setDataSelectedArticle(article)}>                
+
                   EditArticle
                 </button>
                 </>
