@@ -15,8 +15,8 @@ export const NewArticle = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
   const [errorState, setErrorState] = useState({
-    tipo: 'is-danger',
-    mensaje:'mensaje por defecto'
+    tipo: 'is-primary',
+    mensaje:'Se ha creado el nuevo articulo '
   })
   
   const [newArticle, setNewArticle] = useState(initialState);
@@ -68,16 +68,24 @@ export const NewArticle = () => {
         setShowMessage(true)
       return;
       }
-        const message = `Se ha creado el articulo con Exito: ${res.status}`;
+      else {
         setTimeout(() => { 
           setShowMessage(false)
-          setErrorState({ tipo: 'is-primary', mensaje: message });
         }, 2000)
         setIsLoading(false)
         setShowMessage(true)
-      //return;
+      }
       const data = await res.json();      
       setNewArticle(initialState);
+        // const message = `Se ha creado el articulo con Exito: ${res.status}`;
+        // setTimeout(() => { 
+        //   setShowMessage(false)
+        //   setErrorState({ tipo: 'is-primary', mensaje: message });
+        // }, 2000)
+        // setIsLoading(false)
+        // setShowMessage(true)
+
+    
     } catch (error) {
       setErrorState ({ tipo:'is-warning', mensaje: error.message });
       setShowMessage(true);
