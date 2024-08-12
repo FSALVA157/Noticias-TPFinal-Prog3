@@ -1,4 +1,5 @@
-Descripción General
+Descripción General de la Ap0licacion
+
 Esta aplicación está diseñada para obtener y mostrar una lista de artículos desde una API remota. La aplicación permite a los usuarios ver los artículos, los cuales se muestran en un diseño de tarjeta. Si el artículo tiene una imagen asociada, se muestra; de lo contrario, se utiliza una imagen de marcador de posición. Los usuarios pueden hacer clic en cualquier artículo para navegar a una vista detallada de ese artículo.
 
 Características
