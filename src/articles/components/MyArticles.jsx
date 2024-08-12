@@ -9,6 +9,7 @@ import { EditArticle } from "./EditArticle";
 import { DraggableArticleWrapper } from "./DraggableArticleWrapper";
 import { DroppableArticleWrapper } from "./DroppableArticleWrapper";
 import { ModalConfirm } from "../../core/components/ModalConfirm";
+import { Spinner } from "../../core/components/Spinner";
 
 export const MyArticles = () => {
   const { data } = useLoaderData();  
@@ -21,7 +22,7 @@ export const MyArticles = () => {
   const [listaFiltrada, setlistaFiltrada] = useState([]);
   const isDraggingRef = useRef(false)
   const [articleToDelete, setArticleToDelete] = useState(null);
-  
+  const [isLoading, setIsLoading] = useState(true)
   
 
   const handleOnClickArticle = (data) => {
@@ -33,6 +34,7 @@ export const MyArticles = () => {
 
   useEffect(() => {
     if (data !== null) {
+      setIsLoading(false)
       const prelistaFiltrada = data.results.filter(
         (article) => article.author === idUser
       );
@@ -118,8 +120,8 @@ export const MyArticles = () => {
 
   return (
     <>
-      <ModalConfirm showModal={showModal} setshowModal={setshowModal} handleConfirmDelete={handleConfirmDelete} handleCancelDelete={handleCancelDelete}/>
-
+    {isLoading && <Spinner/>}
+      <ModalConfirm showModal={showModal} setshowModal={setshowModal} handleConfirmDelete={handleConfirmDelete}/>
       {listaFiltrada.length < 1 ? (
         <h1>No tienes articulos</h1>
       ) : (
