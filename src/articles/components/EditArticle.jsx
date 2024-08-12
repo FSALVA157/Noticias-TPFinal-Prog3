@@ -170,10 +170,10 @@ const [isLoading, setIsLoading] = useState(false);
 
           <div className="field is-grouped">
             <div className="control">
-              <button type="submit" className="button is-link is-outlined">Submit</button>
+              <button type="submit" className="button is-link is-outlined">Guardar</button>
             </div>
             <div className="control">
-              <button  className="button is-link is-outlined">Cancel</button>
+              <button  className="button is-link is-outlined">Cancelar</button>
             </div>
           </div>
         </form>

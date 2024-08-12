@@ -7,7 +7,7 @@ export const DroppableArticleWrapper = ({ id }) => {
     });
   
     return (
-      <div ref={setNodeRef} className="droppable-area" style={{backgroundColor: 'red'}}>
+      <div ref={setNodeRef} className="droppable-area">
         <figure className="image is-64x64">
           <img src={deleteSvg} alt="Delete" />
         </figure>
