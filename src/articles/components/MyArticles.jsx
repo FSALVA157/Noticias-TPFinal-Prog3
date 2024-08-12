@@ -13,6 +13,7 @@ import { ModalConfirm } from "../../core/components/ModalConfirm";
 export const MyArticles = () => {
   const { data } = useLoaderData();  
   
+  
   const [dataSelectedArticle, setDataSelectedArticle] = useState({})
   const { authState } = useContext(AuthContext);
   const { idUser, token } = authState;
@@ -35,6 +36,8 @@ export const MyArticles = () => {
       const prelistaFiltrada = data.results.filter(
         (article) => article.author === idUser
       );
+
+      console.log("TUS ARTICULOS",prelistaFiltrada);
   
       const listadoCompleto = prelistaFiltrada.map((article) => {
         return {
@@ -103,7 +106,7 @@ export const MyArticles = () => {
   const handleConfirmDelete = () => {
     if (articleToDelete) {
       deleteArticle(articleToDelete);
-      setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== active.id));
+      setlistaFiltrada((prevItems) => prevItems.filter(item => item.id !== articleToDelete));
     }
     setshowModal(false);
   };

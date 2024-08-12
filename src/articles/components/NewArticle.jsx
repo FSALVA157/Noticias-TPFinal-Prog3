@@ -57,6 +57,7 @@ export const NewArticle = () => {
         },
         method: "POST",
       });      
+      console.log(res)
       if (!res.ok) {
         const message = `Error al crear Articulo: ${res.status}`;
         setTimeout(() => { 
